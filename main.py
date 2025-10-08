@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Body
 from data import Userlogin
 
+
 app = FastAPI()
 
 bdd_usuarios = [
@@ -27,7 +28,7 @@ def mostrar_usuario_id(id: int):
     for usuario in bdd_usuarios:
         if usuario["id"] == id:
             return usuario
-    return "Usuario no valido"
+    return "Usuario no encontrado"
 
 @app.post('/Crear', tags=['Creacion de usuarios'])
 def crear_usuario(data: Userlogin):
@@ -40,13 +41,12 @@ def crear_usuario(data: Userlogin):
     return bdd_usuarios
 
 @app.put('/Actualizar/{id}', tags=['Actualizacion de datos'])
-def actualizar_datos(id: int, data:Userlogin):
-    for actualizar in bdd_usuarios:
-        if actualizar['id'] == data.id:
-            actualizar['username'] = data.username
-            actualizar['password'] = data.password
-            actualizar['is_active'] = data.is_active
-            return actualizar
+def actualizar_datos(id: int, username: str, is_active: bool):
+    for ID in bdd_usuarios:
+        if ID['id'] == id:
+            ID['id'] = id
+            ID['username'] = username
+            ID['is_active'] = is_active
     return bdd_usuarios
 
 @app.delete('/Eliminar/{id}', tags=['Eliminar usuario'])
@@ -57,8 +57,8 @@ def eliminar_usuario(id: int):
     return bdd_usuarios
 
 @app.post('/Login', tags=['Login'])
-def login(data: Userlogin):
+def login(username: str, password: str):
     for usuario in bdd_usuarios:
-        if usuario["username"] == data.username and usuario["password"] == data.password:
+        if usuario["username"] == username and usuario["password"] == password:
             return "Login exitoso"
     return "login fallido"
