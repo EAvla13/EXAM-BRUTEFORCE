@@ -7,7 +7,7 @@ letrasMin = "abcdefghijklmnñopqrstuvwxyz"
 numeros = "0123456789"
 signos = "!#$%&/()=?¡*¨[_:;¿'+{-.,}]"
 
-alfabeto = letrasMay + letrasMay + numeros + signos
+alfabeto = letrasMay + letrasMin + numeros + signos
 
 def main():
     url = "http://127.0.0.1:5000/Login"
